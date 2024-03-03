@@ -6,7 +6,7 @@ scenarist:
   event_queue_name: scenarist_action_queue
 
 grpc_addr: 0.0.0.0
-grpc_port: 4040
+grpc_port: 2023
 
 event_queue_addr: rmq-host
 event_queue_port: 5672
