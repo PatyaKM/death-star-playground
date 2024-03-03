@@ -4,6 +4,8 @@ import random
 
 import uuid
 
+from service.generators.pressure_stabilizer.pressure_stabilizer_generator import PressureStabilizer
+from service.generators.temperature_stabilizer.temperature_stabilizer_generator import TemperatureStabilizer
 from service.domain.humidity_manager.humidity_manager import HumidityManager
 from service.generators.generation_strategy import (
     IGenerationStrategy,
@@ -45,6 +47,14 @@ class DefaultGenerationStrategy(IGenerationStrategy):
             self.GenerationParams.CHANCE = self.__model.humidity - 70
             if random(0,100,1) <= self.GenerationParams.CHANCE:
                 self.__model.durability -= 5
+        
+        if not PressureStabilizer.is_on:
+            self.__model.is_on = False
+        
+        if TemperatureStabilizer.sun_side and not self.__model.is_on:
+            self.__model.humidity = 90
+        else:
+            self.__model.humidity = 50
 
     def name(self) -> str:
         return self.__name
