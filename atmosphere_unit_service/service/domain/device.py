@@ -25,5 +25,3 @@ class Device:
     is_on: bool
     alarm: bool
     durability: float
-
-    sector: str
